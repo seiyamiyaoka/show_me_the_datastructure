@@ -5,6 +5,10 @@
   - I created a hashmap with the user name as the key.
 ## About Order complexity
 $O(1)$
+The user's data is stored in an array.
+
+Processing in a loop requires $O(n)$ complexity, but by converting the data to hashmap, the complexity is $O(1)$.
+
 ## About implementation
 
 I use hashmap to check if a user belongs to a group.
