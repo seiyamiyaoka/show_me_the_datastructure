@@ -9,7 +9,7 @@ This is because the amount of calculation when registering a new cache and when 
 $O(1)$
 The "get" and "set" methods access the cache.
 
-The amount of calculation is ＄O(1)$ because the data can be specified at once by the key.
+The Order complexity is $O(1)$ because the data can be specified at once by the key.
 
 ## About implementation
 
