@@ -42,6 +42,10 @@ print(our_cache.get(2))
 # returns 2
 print(our_cache.get(9))
 # returns -1
+print(our_cache.get(""))
+# returns -1
+print(our_cache.get(None))
+# returns -1
 our_cache.set(5, 5)
 our_cache.set(6, 6)
 print(our_cache.get(3))
