@@ -14,6 +14,42 @@
   - $O(n log n)$: Create a binary tree when you create a heap data structure in python. It requires $O(nlogn)$ complexity to execute it n times.
 - huffman_decoding
   - $O(n log n)$
+
+## About Space complexity
+
+### encode
+Computational complexity $O(n log n)$ is required to create a binary tree.
+$O(n log n)$ Nodes are created.
+
+Calculates the data type assigned to the local variable used when encoding.
+
+node_instance_size = 64 => Node instance size
+hash = 248 => default dict size
+memo = 248 => default dict size
+encode_data = 49 => string
+priority_queue = 72 => empty list size
+is_valid = 28 => bool size(24(False) or 28(True))
+merge_node = 64 => Node instance size
+left = 72 => heap list size
+right = 72 => heap list size
+result = 48 => string
+
+((n log n) * node_instance_size) + hash + memo + encode_data + priority_queue + is_valid + merge_node + left + right + result
+
+### decode
+
+decode_data = 48 => string
+head = 72 => heap list
+tree = 72 => heap list
+data = 48 => string
+
+n = Number of reached leaf
+
+The number of bytes of the leaf value string is added when decoding.
+The amount of data when added is 1 byte.
+
+decode_data + n + head + tree + data
+
 ## About implementation
 
 ```py

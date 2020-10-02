@@ -4,6 +4,7 @@ target_dir = "./testdir"
 
 def find_files(suffix, path):
   all_paths = sorted(traverse_path(suffix, path))
+  import pdb; pdb.set_trace()
   return search_prefix(all_paths, ".c")
 
 def traverse_path(suffix, path):

@@ -30,6 +30,7 @@ class Block:
     return sha.hexdigest()
 
 chain = BlockChain(Block(12, 'hello', 0))
+
 chain.add_chain(Block("", 'kojiro'))
 chain.add_chain(Block(None, 'kojiro'))
 chain.add_chain(Block(None, None))
@@ -41,6 +42,7 @@ while block is not None:
   print(block.hash)
   print("check: previous_hash")
   print(block.previous_hash)
+  block = block.next
   # check: hash
   # 8f10e410fdef7119b03a3c302117e3732b5e8b40d7759b825ec19400be3f9a2f
   # check: previous_hash
@@ -61,5 +63,3 @@ while block is not None:
   # bf25b109b4381e9041ac2ece0fa2b522a88c06ef8ea0434770cacf8ec98a220a
   # check: previous_hash
   # 99c5875334f709b0ecae8ca1ffdc7b2cc03d43665ac7ae2a21ade613a3ff66c4
-  block = block.next
-

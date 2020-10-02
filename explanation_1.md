@@ -11,6 +11,24 @@ The "get" and "set" methods access the cache.
 
 The Order complexity is $O(1)$ because the data can be specified at once by the key.
 
+## About Space complexity
+`self.capacity` is 28bit because it expects int.
+
+```python
+>>> sys.getsizeof(4)
+28 # bytes
+```
+
+self.cache is a dictionary.
+The maximum storage capacity is 5 according to the rules.
+
+```python
+sys.getsizeof(d) # d have 5 keys dictionary
+376 # bytes
+```
+
+Space complexity is about 400bytes.
+
 ## About implementation
 
 The big feature is to consider the order while using hashmap.
