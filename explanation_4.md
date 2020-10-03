@@ -10,17 +10,8 @@ The user's data is stored in an array.
 Processing in a loop requires $O(n)$ complexity, but by converting the data to hashmap, the complexity is $O(1)$.
 
 ## About Space complexity
-self.name = 49 => string
-self.groups = 72 => list
-self.users = 72 => list
-
-8byte capacity increases when adding user or group.
-Therefore, the space complexity of each group is
-
-n = Number of executions of add_group method
-k = Number of executions of add_user method
-
-self.name + self.groups + 8n + self.users + 8k
+- is_user_in_group
+  - $O(n)$. This is because all the user's data is stored in an array.
 
 ## About implementation
 
