@@ -17,7 +17,6 @@ def huffman_encoding(data):
   priority_queue = []
 
   is_valid = len(data) > 0
-  is_loop_end = False
 
   assert is_valid, 'please input any char'
 
@@ -70,6 +69,7 @@ def huffman_decoding(data, tree):
   decode_data = ""
   head = tree
   depth_is_one = tree.left is None and tree.right is None
+
   while data:
     if tree and tree.left is None and tree.right is None:
       decode_data += tree.value

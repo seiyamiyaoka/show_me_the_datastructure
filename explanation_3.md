@@ -17,24 +17,12 @@
 
 ## About Space complexity
 
-### encode
-Computational complexity $O(n log n)$ is required to create a binary tree.
-$O(n log n)$ Nodes are created.
-
-Calculates the data type assigned to the local variable used when encoding.
-
-node_instance_size = 64 => Node instance size
-hash = 248 => default dict size
-memo = 248 => default dict size
-encode_data = 49 => string
-priority_queue = 72 => empty list size
-is_valid = 28 => bool size(24(False) or 28(True))
-merge_node = 64 => Node instance size
-left = 72 => heap list size
-right = 72 => heap list size
-result = 48 => string
-
-((n log n) * node_instance_size) + hash + memo + encode_data + priority_queue + is_valid + merge_node + left + right + result
+- huffman_encoding
+  - $O(n)$. This is because when creating a heap, data is retained for the number of hash elements.
+- create_binary
+  - $O(n^2)$. This is because a result variable is prepared for each recursive process.
+- huffman_decoding
+  - $O(1)$. It is a constant because it is reassigned when searching the tree."decoded_data" is considered as a string.
 
 ### decode
 
