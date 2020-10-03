@@ -9,11 +9,14 @@ class BlockChain:
     self.tail = head
 
   def add_chain(self, new_block):
-    block = self.tail
-
-    new_block.previous_hash = block.hash
-    block.next = new_block
-    self.tail = new_block
+    if isinstance(self.head, Block):
+      block = self.tail
+      new_block.previous_hash = block.hash
+      block.next = new_block
+      self.tail = new_block
+    else:
+      print("No valid block is set")
+      return
 
 class Block:
   def __init__(self, timestamp, data, previous_hash=None):
@@ -29,6 +32,7 @@ class Block:
 
     return sha.hexdigest()
 
+# case standard
 chain = BlockChain(Block(12, 'hello', 0))
 
 chain.add_chain(Block("", 'kojiro'))
@@ -63,3 +67,18 @@ while block is not None:
   # bf25b109b4381e9041ac2ece0fa2b522a88c06ef8ea0434770cacf8ec98a220a
   # check: previous_hash
   # 99c5875334f709b0ecae8ca1ffdc7b2cc03d43665ac7ae2a21ade613a3ff66c4
+
+# case head is None
+chain = BlockChain(None)
+chain.add_chain(Block("", 'kojiro'))
+# No valid block is set
+
+# case head is int
+chain = BlockChain(1234)
+chain.add_chain(Block("", 'kojiro'))
+# No valid block is set
+
+# case head is empty value
+chain = BlockChain("")
+chain.add_chain(Block("", 'kojiro'))
+# No valid block is set
