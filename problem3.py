@@ -1,6 +1,7 @@
 import sys
 import heapq
 import random
+random.seed(1)
 
 class Node:
   def __init__(self, value, frequency):
@@ -16,6 +17,7 @@ def huffman_encoding(data):
   priority_queue = []
 
   is_valid = len(data) > 0
+  is_loop_end = False
 
   assert is_valid, 'please input any char'
 
@@ -25,15 +27,16 @@ def huffman_encoding(data):
   for index, item in enumerate(hash.items()):
     heapq.heappush(priority_queue, tuple((item[1], index, Node(item[0], item[1]))))
 
-  while len(priority_queue) > 1:
-    left = heapq.heappop(priority_queue)
-    right = heapq.heappop(priority_queue)
+  if len(priority_queue) > 1:
+    while len(priority_queue) > 1:
+      left = heapq.heappop(priority_queue)
+      right = heapq.heappop(priority_queue)
 
-    merge_node = Node("", "")
-    merge_node.left = left[2]
-    merge_node.right = right[2]
+      merge_node = Node("", "")
+      merge_node.left = left[2]
+      merge_node.right = right[2]
 
-    heapq.heappush(priority_queue, tuple((left[0] + right[0], left[0] + int(random.random() * 1000), merge_node)))
+      heapq.heappush(priority_queue, tuple((left[0] + right[0], left[0] + int(random.random() * 1000), merge_node)))
 
   for char in data:
     if char in memo:
@@ -48,7 +51,10 @@ def huffman_encoding(data):
 def create_binary(tree, target_char, binary_str):
   result = ""
   if tree.value == target_char:
-    return binary_str
+    if len(binary_str) > 0:
+      return binary_str
+    else:
+      return "0"
   if tree is not None:
     if tree.left is not None:
       result = create_binary(tree.left, target_char, binary_str + "0")
@@ -63,16 +69,19 @@ def create_binary(tree, target_char, binary_str):
 def huffman_decoding(data, tree):
   decode_data = ""
   head = tree
+  depth_is_one = tree.left is None and tree.right is None
   while data:
-    if tree.left is None and tree.right is None:
+    if tree and tree.left is None and tree.right is None:
       decode_data += tree.value
       tree = head
-    if int(data[0]) == 0:
-      tree = tree.left
-    elif int(data[0]) == 1:
-      tree = tree.right
+    if tree:
+      if tree.left is not None and int(data[0]) == 0:
+        tree = tree.left
+      elif tree.right is not None and int(data[0]) == 1:
+        tree = tree.right
     data = data[1:]
-  decode_data += tree.value
+  if depth_is_one is False:
+    decode_data += tree.value
   return decode_data
 
 if __name__ == "__main__":
@@ -98,7 +107,7 @@ if __name__ == "__main__":
     print ("The content of the encoded data is: {}\n".format(decoded_data))
     # The content of the encoded data is: The bird is the word
 
-    # test case 2
+    # # # test case 2
 
     a_great_sentence = "こんにちは"
 
@@ -119,7 +128,29 @@ if __name__ == "__main__":
     print ("The content of the encoded data is: {}\n".format(decoded_data))
     # The content of the encoded data is: こんにちは
 
-    # # test case 3
+    # test case 3 repeat value
+
+    a_great_sentence = "AAAAAAAAAA"
+
+    print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
+    # The size of the data is: 84
+    print ("The content of the data is: {}\n".format(a_great_sentence))
+    # The content of the data is: こんにちは
+    encoded_data, tree = huffman_encoding(a_great_sentence)
+    # import pdb; pdb.set_trace()
+
+    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    # The size of the encoded data is: 28
+    print ("The content of the encoded data is: {}\n".format(encoded_data))
+    # The content of the encoded data is: 110111000110
+    decoded_data = huffman_decoding(encoded_data, tree[0][2])
+
+    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    # The size of the decoded data is: 84
+    print ("The content of the encoded data is: {}\n".format(decoded_data))
+    # The content of the encoded data is: こんにちは
+
+    # # # test case 4 empty value
     a_great_sentence = ""
 
     print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
