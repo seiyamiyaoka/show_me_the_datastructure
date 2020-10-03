@@ -17,16 +17,12 @@ Even if the recursive function is executed in the loop, it will be executed for 
 
 ## About Space complexity
 
-My implementation keeps all paths in an array<string>.
-
-n = all path size
-array_bytes = 72
-
-```python
->>> sys.getsizeof([])
-72
-```
-Therefore space complexity is $8n + array_bytes$.
+- find_files
+  - $O(n)$. The elements of the array are n because there are as many paths as the directory contains.
+- traverse_path
+  - $O(n^2)$. This is because it uses the traverse_path function recursively. No reference is shared as it returns a new array.
+- search_prefix
+  - $O(n)$. The names argument expects an array. The elements of the array are `n` because there are as many paths as the directory contains.
 
 ## About implementation
 I use a recursive function to set the directory that exists in the argument.
